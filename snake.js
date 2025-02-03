@@ -9,9 +9,16 @@ var context;
 snakeX = blockSize * 5;
 snakeY = blockSize * 5;
 
-// Foood
-var foodX = blockSize * 10;
-var foodY = blockSize * 10;
+// Snake Speed
+var velocityX = 0;
+var velocityY = 0;
+
+// Snake Body
+var snakeBody = [];
+
+// Food
+var foodX;
+var foodY;
 
 window.onload = () => {
   board = document.getElementById("board");
@@ -19,16 +26,54 @@ window.onload = () => {
   board.width = cols * blockSize;
   context = board.getContext("2d"); // Used for drawing on the board
 
-  update();
+  placeFood();
+  document.addEventListener("keyup", changeDirection);
+  //   update();
+  setInterval(update, 1000 / 10);
 };
 
-function update() {
+const update = () => {
+  // Canvas color
   context.fillStyle = "black";
   context.fillRect(0, 0, board.width, board.height);
 
-  context.fillStyle = "lime";
-  context.fillRect(snakeX, snakeY, blockSize, blockSize);
-
+  // Food color
   context.fillStyle = "red";
   context.fillRect(foodX, foodY, blockSize, blockSize);
-}
+
+  if (snakeX == foodX && snakeY == foodY) {
+    snakeBody.push([foodX, foodY]);
+    placeFood();
+  }
+
+  // Snake color and speed
+  context.fillStyle = "lime";
+  snakeX += velocityX * blockSize;
+  snakeY += velocityY * blockSize;
+  context.fillRect(snakeX, snakeY, blockSize, blockSize);
+  for (let i = 0; i < snakeBody.length; i++) {
+    context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
+  }
+};
+
+// Change direction of the snake
+const changeDirection = (e) => {
+  if (e.code == "ArrowUp" && velocityY != 1) {
+    velocityX = 0;
+    velocityY = -1;
+  } else if (e.code == "ArrowDown" && velocityY != -1) {
+    velocityX = 0;
+    velocityY = 1;
+  } else if (e.code == "ArrowLeft" && velocityX != 1) {
+    velocityX = -1;
+    velocityY = 0;
+  } else if (e.code == "ArrowRight" && velocityX != -1) {
+    velocityX = 1;
+    velocityY = 0;
+  }
+};
+
+const placeFood = () => {
+  foodX = Math.floor(Math.random() * cols) * blockSize;
+  foodY = Math.floor(Math.random() * rows) * blockSize;
+};
