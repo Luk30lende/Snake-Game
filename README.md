@@ -5,7 +5,6 @@ A classic Snake Game built using JavaScript, HTML, and CSS. The game features sm
 ## Features
 
 - **Classic Snake Gameplay** – Control the snake to eat food and grow longer.
-- **Responsive Design** – Works on various screen sizes.
 - **Simple Controls** – Navigate using arrow keys.
 - **Score Tracking** – Displays the player's current score.
 - **Game Over Logic** – Ends the game when the snake collides with itself or the boundaries.
