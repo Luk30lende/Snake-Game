@@ -51,7 +51,7 @@ Contributions are welcome! If you'd like to improve the game, feel free to fork 
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
 
 ## Author
 
